@@ -125,3 +125,23 @@ extension HistoryEntity {
 - Core Data自已不需要透過Objective-C selector 呼叫這個方法
 - 這個方法純屬 Swift 的便利函式
 - 若暴露出去反而會污染 Objective-C 的命名空間
+
+## DispatchQueue 中的.barrier 作用
+./barrier 是CGD(Grand Central Dipatch)中一個重要標記，用於控制並行佇列中的執行順序。  
+當你在並行佇列(concurrent queue)中使用.barrier標記時，它會建立一個屏障：  
+執行順序：  
+- 等待：等待所有在barrier之前送出的工作完成
+- 獨佔執行：barrier工作會獨佔整個佇列執行(此時不會有其他工作同時執行)
+- 繼續：barrier工作完成後，後續的工作才能繼續執行
+
+## DispatchQueue.global(qos: .userInitiated)的意義
+qos = Quality of Service  
+告訴系統這個任務的重要程度與即時性需求，讓系統決定該任務應該在哪個優先層級(Priority)執行。  
+常見的QoS等級  
+- .userInteractive:最高優先級，需要立即回應使用，如：UI更新
+- .userInitiated:使用者觸發、需快速完成但非立即，如：讀檔
+- .default:一般優先級，如：一般背景任務
+- .utility:可長時間執行的任務，如：下載、匯出檔案
+- .background:最低優先級，不會影響使用者體驗的任務，如：備份
+- .unspecified:未指定，系統自行推斷
+
