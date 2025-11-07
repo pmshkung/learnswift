@@ -145,3 +145,45 @@ qos = Quality of Service
 - .background:最低優先級，不會影響使用者體驗的任務，如：備份
 - .unspecified:未指定，系統自行推斷
 
+## @available(*, deprecated, ...)的作用
+基本語法：  
+```swift
+@available(*, deprecatred, message: "提示訊息")
+func oldFunction() {
+}
+```
+參數說明：  
+- *：表示適用於所有平台(iOS, macOS, watchOS, tvOS 等)
+- deprecated：標記為「已過時」或「不建議使用」，表示這個API還是可以使用，但不推薦使用
+- message：給開發者的提示訊息
+
+範例：
+```swift
+@available(*, deprecated, message: "請使用 getHistoryItems(for:limit:offset:) 分頁版本")
+func getHistoryItems(for type: TradingType) -> [HistoryItem] {
+    // ...
+}
+```
+效果：當開發者使用這個方法時，編譯器會出現警告，如下：  
+   ⚠️ 'getHistoryItems(for:)' is deprecated: 請使用 getHistoryItems(for:limit:offset:) 分頁版本  
+
+其他常見用法：
+```swift
+// 1. 標記為已過時，提供替代方案
+@available(*, deprecated, renamed: "newFunctionName")
+func oldFunction() {}
+
+// 2. 指定過時的版本
+@available(iOS, deprecated: 13.0, message: "使用新的 API")
+func oldIOSFunction() {}
+
+// 3. 完全移除（obsoleted）
+@available(*, unavailable, message: "已移除，請使用 XXX")
+func removedFunction() {}
+
+// 4. 指定引入版本
+@available(iOS 13.0, *)
+func newFunction() {}
+```
+
+
