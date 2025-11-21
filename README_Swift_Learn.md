@@ -185,5 +185,17 @@ func removedFunction() {}
 @available(iOS 13.0, *)
 func newFunction() {}
 ```
+## .equalTo, .greaterThanOrEqualTo, .lessThanOrEqualTo 的意思  
+- .equalTo: 等於
+- .greaterThanOrEqualTo: 大於或等於
+- .lessThanOrEqualTo: 小於或等於
+```swift
+view1.leadingAnchor.constraint(greaterThanOrEqualTo: view2.trailingAnchor, constant: 8).isActive = true
 
+```
+指的是view1.leading >= view2.trailing + 8  
+```swift
+button.heightAnchor.constraint(greaterThanOrEqualToConstant: 44).isActive = true
 
+```
+指的是Button的高度至少為44pt
