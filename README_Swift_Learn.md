@@ -199,3 +199,8 @@ button.heightAnchor.constraint(greaterThanOrEqualToConstant: 44).isActive = true
 
 ```
 指的是Button的高度至少為44pt
+
+## .scaleAspectFit, scaleAspectFill, .scaleToFill 的差異
+- .scaleAspectFit: 等比例縮放，完整顯示，可能留白
+- .scaleAspectFill: 等比例縮放，填滿容器，可能被裁切
+- .sacleToFill: 拉伸填滿容器，可能變形
